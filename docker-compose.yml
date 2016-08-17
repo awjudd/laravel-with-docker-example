@@ -35,3 +35,14 @@ services:
         image: redis:3.0
         ports:
             - "63791:6379"
+    queue:
+        build:
+            context: ./
+            dockerfile: deploy/queue.docker
+        volumes:
+            - ./:/var/www
+        links:
+            - database
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=database"
